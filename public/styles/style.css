@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Roboto:ital,wght@0,100..900;1,100..900&family=Share+Tech&display=swap');
+
+:root {
+    --backgroundcolor: #2e2e2c;
+    --color: #d3d3d3;
+    --mainfont: 'Share Tech';
+    --titlefont: 'Luckiest Guy';
+    --headerbackground: #242422;
+    --messagefont: roboto;
+}
+
+body {
+    background-color: var(--backgroundcolor);
+    color: var(--color);
+    height: 100vh;
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+.videoContainer {
+    width: 100%;
+    height: 45%;
+    /* background-color: aquamarine; */
+    display: flex;
+    justify-content: space-around;
+}
+
+header {
+    background-color: var(--headerbackground);
+    width: 100%;
+    height: 64px;
+    display: flex;
+}
+
+.logoContainer {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+}
+
+.logo {
+    font-family: var(--titlefont);
+    margin: 0;
+    padding: 0;
+    font-size: 40px;
+
+    color: rgb(224, 24, 24);
+    text-shadow: 2px 0 #fff, -2px 0 #fff, 0 2px #fff, 0 -2px #fff,
+        1px 1px #fff, -1px -1px #fff, 1px -1px #fff, -1px 1px #fff;
+}
+
+.navContainer {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 20px;
+}
+
+.navContainer a {
+    text-decoration: none;
+    color: var(--color);
+}
+
+.navContainer ul {
+    display: flex;
+}
+
+.navContainer li {
+    list-style-type: none;
+    font-family: var(--mainfont);
+    margin-left: 10px;
+}
+
+.navContainer li:hover {
+    text-decoration: underline;
+}
+
+.videos {
+    height: 100%;
+    width: 40%;
+    background-color: black;
+    margin-top: 10px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+video{
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+
+#message{
+    width: 100%;
+    height: 30%;
+    overflow: auto;
+}
+
+#message p{
+    margin-left: 50px;
+    font-family: var(--messagefont);
+}
+
+.inputContainer{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.inputContainer form{
+    width: 80%;
+}
+
+.inputContainer input{
+    height: 40px;
+    width: 80%;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    padding-left: 10px;
+    font-family: var(--mainfont);
+}
+
+.inputContainer button{
+    width: 90px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    font-family: var(--mainfont);
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+}
+
+#online{
+    position: absolute;
+    z-index: 10;
+    left: 40px;
+    font-family: var(--mainfont);
+    color: rgb(35, 245, 35);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

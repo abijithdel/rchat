@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>R Chat</title>
+    <link rel="stylesheet" href="/styles/style.css">
+    <link rel="stylesheet" href="/styles/loader.css">
+    <link rel="stylesheet" href="/styles/mobile.css">
+</head>
+
+<body>
+    <header>
+        <div class="logoContainer">
+            <h1 class="logo">RCHAT</h1>
+        </div>
+        <div class="navContainer">
+            <ul>
+                <li>
+                    <a href="#">Report</a>
+                </li>
+                <li>
+                    <a href="#">Feedbacks</a>
+                </li>
+            </ul>
+        </div>
+    </header>
+    <h3 title="online" id="online">0</h3>
+    <div class="videoContainer">
+        <div class="videos">
+            <video id="to" style="display: none;"></video>
+            <p id="loader" class="loader"></p>
+        </div>
+        <div class="videos me">
+            <video id="me" muted></video>
+        </div>
+    </div>
+    <div id="message">
+        <!-- message -->
+    </div>
+    <div class="inputContainer">
+        <form id="form">
+            <input type="text" placeholder="Message..." id="input">
+            <button type="submit" style="background-color: rgb(14, 226, 14);">Send!</button>
+            <button type="button" style="background-color: red;" onclick="skip()">Skip</button>
+
+        </form>
+    </div>
+    <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/index.js"></script>
+    <script src="/js/peer.js"></script>
+</body>
+
+</html>

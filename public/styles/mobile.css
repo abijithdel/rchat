@@ -1,0 +1,29 @@
+@media (max-width: 768px) {
+    .videoContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .videos {
+        width: 90%;
+        height: 90%;
+    }
+
+    .inputContainer input {
+        width: 60%;
+    }
+
+    .me{
+        height: 30%;
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        background-color: transparent;
+        box-shadow: rgba(0, 0, 0, 0) 0px 5px 15px;
+        padding-right: 50px;
+    }
+
+    .me video {
+        width: 30%;
+    }
+}
