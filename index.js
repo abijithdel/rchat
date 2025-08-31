@@ -4,6 +4,7 @@ const { Server } = require('socket.io');
 const path = require('path')
 const { GetTimeAndDate, getRandomFloat } = require('./helpers/index')
 const { SaveLog } = require('./helpers/setlog')
+require('dotenv').config();
 
 const app = express()
 const server = createServer(app)
@@ -83,7 +84,7 @@ io.on('connection', (socket) => {
 const IndexRouter = require('./routers/index')
 app.use('/', IndexRouter)
 
-const PORT = 3000 || process.env.PORT
+const PORT = process.env.PORT || 3000
 server.listen(PORT, () => console.log(`Running on ${PORT}`))
 
 module.exports = server;
