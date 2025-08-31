@@ -149,3 +149,12 @@ video{
     color: rgb(35, 245, 35);
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
+footer{
+    height: 8%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: gray;
+}

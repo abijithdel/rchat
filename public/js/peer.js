@@ -5,6 +5,7 @@ const from = document.getElementById('form')
 const input = document.getElementById('input')
 const messageBox = document.getElementById('message')
 const onlineTag = document.getElementById('online')
+const mysocketidTag = document.getElementById('mysocketid')
 
 const socket = io();
 const peer = new Peer();
@@ -12,6 +13,21 @@ const peer = new Peer();
 let mystream;
 let TOID;
 let PEERID;
+
+
+const GetIP = async () => {
+    try {
+        const response = await fetch('https://api.ipify.org/?format=json')
+        const data = await response.json()
+        socket.emit('ip', data.ip)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+socket.on('init', ({ socketid }) => {
+    mysocketidTag.innerText = `SocketID:${socketid}`
+})
 
 async function startScreenShare() {
     console.log("🔵 startScreenShare() called");
@@ -30,7 +46,7 @@ async function startScreenShare() {
 peer.on('open', async function (id) {
     await startScreenShare();
     PEERID = id;
-    socket.emit('find', id)
+    socket.emit('find', { peerid: id })
 })
 
 socket.on('onlineusers', (online) => {
@@ -40,20 +56,19 @@ socket.on('onlineusers', (online) => {
 
 socket.on('leaveuser', (toid) => {
     if (toid !== toid) return;
-    TOID = null;
-    socket.emit('find', PEERID)
+    socket.emit('find', ({ peerid: PEERID, pid: toid }))
     tovideo.style.display = 'none'
     loader.style.display = 'block'
     messageBox.innerHTML = ''
+    TOID = null;
 })
 
-socket.on('peerid', async ({ socketid, peerid, initiator }) => {
+socket.on('peerid', async ({ socketid, peerid, initiator, mysocketid }) => {
     TOID = socketid;
     loader.style.display = 'none'
     if (initiator) {
         await Call(peerid)
     }
-
 })
 
 socket.on('smessage', ({ to, message }) => {
@@ -91,7 +106,7 @@ function skip() {
     socket.emit('skip', PEERID)
     tovideo.style.display = 'none'
     loader.style.display = 'block'
-    socket.emit('find', PEERID)
+    socket.emit('find', ({ peerid: PEERID, pid: TOID }))
     messageBox.innerHTML = ''
     TOID = null
 }
@@ -105,3 +120,9 @@ from.addEventListener('submit', (e) => {
     messageBox.appendChild(p)
     input.value = ''
 })
+
+function init() {
+    GetIP()
+}
+
+init()
