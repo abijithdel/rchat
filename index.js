@@ -2,7 +2,7 @@ const express = require('express')
 const { createServer } = require('node:http')
 const { Server } = require('socket.io');
 const path = require('path')
-const { GetTimeAndDate, getRandomFloat } = require('./helpers/index')
+const { InitConnection } = require('./helpers/sockethelp')
 const { SaveLog } = require('./helpers/setlog')
 require('dotenv').config();
 
@@ -13,7 +13,7 @@ const io = new Server(server);
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-const waiting = []
+let waiting = []
 const connections = {}
 let online = 0
 let IP;
@@ -28,13 +28,10 @@ io.on('connection', (socket) => {
   io.to(socket.id).emit('init', { socketid: socket.id })
   io.emit('onlineusers', online)
 
-  socket.on('find', ({ peerid, pid }) => {
+  socket.on('find', async ({ peerid, pid }) => {
     if (waiting.length >= 1) {
-      const index = getRandomFloat(waiting.length - 1)
-
-      const touser = waiting[index]
-      if (touser.socketid === socket.id) return;
-      if (touser.pcid === socket.id) return;
+      const touser = await InitConnection(waiting, connections, socket.id)
+      if(!touser) return;
 
       io.to(socket.id).emit('peerid', { socketid: touser.socketid, peerid: touser.peerid, initiator: true, mysocketid: socket.id })
       io.to(touser.socketid).emit('peerid', { socketid: socket.id, peerid: peerid, initiator: false, mysocketid: socket.id })
@@ -45,8 +42,7 @@ io.on('connection', (socket) => {
       io.to(touser.socketid).emit('smessage', { to: 'system', message: `connected` })
       io.to(socket.id).emit('smessage', { to: 'system', message: `connected` })
 
-      waiting.splice(index, 1)
-      waiting.filter(item => item.socketid !== socket.id)
+      waiting = waiting.filter(item => item.socketid !== socket.id && item.socketid !== touser.socketid)
     } else {
       waiting.push({ socketid: socket.id, peerid, pcid: pid ? pid : null })
     }

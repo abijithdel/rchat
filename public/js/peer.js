@@ -66,6 +66,7 @@ socket.on('leaveuser', (toid) => {
 socket.on('peerid', async ({ socketid, peerid, initiator, mysocketid }) => {
     TOID = socketid;
     loader.style.display = 'none'
+    console.log(socketid)
     if (initiator) {
         await Call(peerid)
     }
