@@ -26,4 +26,8 @@
     .me video {
         width: 30%;
     }
+
+    #send-bt{
+        display: none;
+    }
 }

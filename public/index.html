@@ -42,13 +42,14 @@
     <div class="inputContainer">
         <form id="form">
             <input type="text" placeholder="Message..." id="input">
-            <button type="submit" style="background-color: rgb(14, 226, 14);">Send!</button>
+            <button type="submit" style="background-color: rgb(14, 226, 14);" id="send-bt">Send!</button>
             <button type="button" style="background-color: red;" onclick="skip()">Skip</button>
 
         </form>
     </div>
     <footer>
         <span id="mysocketid"></span>
+        <span>Built by <a href="https://osontech.in/">OsonTech</a></span>
     </footer>
     <script src="https://unpkg.com/peerjs@1.5.5/dist/peerjs.min.js"></script>
     <script src="/socket.io/socket.io.js"></script>

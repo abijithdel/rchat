@@ -22,7 +22,7 @@ io.on('connection', (socket) => {
   online++;
   socket.on('ip', (ip) => {
     IP = ip
-    SaveLog(socket.id, ip, 'Join')
+    // SaveLog(socket.id, ip, 'Join')
     console.log(`Join user. ${socket.id}, IP:${ip}`)
   })
   io.to(socket.id).emit('init', { socketid: socket.id })
