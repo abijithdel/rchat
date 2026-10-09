@@ -37,14 +37,17 @@ async function startScreenShare() {
 
         mevideo.srcObject = mystream;
         mevideo.onloadedmetadata = () => mevideo.play();
-
+        return true
     } catch (err) {
         console.error("❌ Error accessing screen:", err);
+        alert('❌ Error accessing screen')
+        return false
     }
 }
 
 peer.on('open', async function (id) {
-    await startScreenShare();
+    const status = await startScreenShare();
+    if(!status) return
     PEERID = id;
     socket.emit('find', { peerid: id })
 })
@@ -66,7 +69,6 @@ socket.on('leaveuser', (toid) => {
 socket.on('peerid', async ({ socketid, peerid, initiator, mysocketid }) => {
     TOID = socketid;
     loader.style.display = 'none'
-    console.log(socketid)
     if (initiator) {
         await Call(peerid)
     }
@@ -94,6 +96,7 @@ peer.on('call', async function (call) {
 });
 
 async function Call(peerid) {
+    if(!mystream) skip()
     var call = peer.call(peerid, mystream);
 
     call.on('stream', function (stream) {
